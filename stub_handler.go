@@ -71,7 +71,7 @@ func (h *StubHandler) createStubHandler(w http.ResponseWriter, req *http.Request
 			log.Printf("Could not send response to client due to: %v", err)
 		}
 	}
-
+	log.Printf("Created stub for key %v", stub.Method+stub.Path)
 	h.stubs[stub.Method+stub.Path] = stub
 }
 
@@ -82,6 +82,13 @@ func (h *StubHandler) returnStubHandler(w http.ResponseWriter, req *http.Request
 	if len(query) > 0 {
 		path += "?" + query.Encode()
 	}
+	
+	log.Printf("Requested stub: %v", path)
+	keys := make([]string, 0, len(m))
+	for k := range h.stubs {
+    		keys = append(keys, k)
+	}
+	log.Printf("Current stubs: %v", keys)
 
 	if stub, ok := h.stubs[path]; ok {
 		if stub.Status != 0 {
