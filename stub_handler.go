@@ -89,6 +89,11 @@ func (h *StubHandler) returnStubHandler(w http.ResponseWriter, req *http.Request
     		keys = append(keys, k)
 	}
 	log.Printf("Current stubs: %v", keys)
+	if val, ok := h.stubs[path]; ok {
+		log.Printf("Found requested stub: %v", val)
+	} else {
+		log.Printf("Could not find requested stub: %v", val)	
+	}
 
 	if stub, ok := h.stubs[path]; ok {
 		if stub.Status != 0 {
