@@ -84,7 +84,7 @@ func (h *StubHandler) returnStubHandler(w http.ResponseWriter, req *http.Request
 	}
 	
 	log.Printf("Requested stub: %v", path)
-	keys := make([]string, 0, len(m))
+	keys := make([]string, 0, len(h.stubs))
 	for k := range h.stubs {
     		keys = append(keys, k)
 	}
